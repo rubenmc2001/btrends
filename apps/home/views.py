@@ -145,8 +145,8 @@ def query_to_df(request, word, q_size = 10000):
 
     data = pd.DataFrame({'id': id, 'nombre': nombre, 'url': urls, 'region': region, 'country': country, 'sector':sector, 'size': size, 'anyo': anyo})
     data['anyo'] = pd.to_numeric(data['anyo'], downcast ='signed')
-    if request.user.is_authenticated:
-        historial(request, data, word.lower())
+    # if request.user.is_authenticated:
+    #     historial(request, data, word.lower())
     return data
 
 def query_to_df_local(request, word, url = 'http://localhost:9200/indice_prueba/_search', q_size = 10000):
@@ -423,7 +423,7 @@ def chart(request):
     # year = request.GET.get('selected_year')
     if word:
         # df = run_multiprocess(word, 4, 'http://localhost:9200/indice_prueba/_search', 10000)
-        df = query_to_df_local(request, word)
+        df = query_to_df(request, word)
         length = len(df)
         pct = round((length*100)/300000,0)
         pct = int(pct)
