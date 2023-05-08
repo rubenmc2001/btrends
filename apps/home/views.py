@@ -124,19 +124,21 @@ def query_to_df(request, word, q_size = 10000):
         if n_results == 0:
                 break
 
+        l_sectores = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N']
         for i in range(n_results):
-            try: #Se comprueba que el año sea un número
+            try: #Se comprueba que el año sea un número y que el sector esté en la lista de sectores
                     year = result['hits']['hits'][i]['_source']['year'] #Se obtiene el año de la empresa
                     year = int(year) #Se comprueba que el año sea un número
-                    if year > 1900:
+                    sectores = result['hits']['hits'][i]['_source']['section'] #Se obtiene el sector de la empresa
+                    if year > 1900 and sectores in l_sectores:
                         id.append(result['hits']['hits'][i]['_id']) #Se obtiene el id de la empresa
                         nombre.append(result['hits']['hits'][i]['_source']['name']) #Se obtiene el nombre de la empresa
                         urls.append(result['hits']['hits'][i]['_source']['url']) #Se obtiene la url de la empresa
-                        sector.append(result['hits']['hits'][i]['_source']['section']) #Se obtiene el sector de la empresa
                         region.append(result['hits']['hits'][i]['_source']['region']) #Se obtiene la región de la empresa
                         country.append(paises(result['hits']['hits'][i]['_source']['country'])) #Se obtiene el país de la empresa
                         size.append(result['hits']['hits'][i]['_source']['size']) #Se obtiene el tamaño de la empresa
                         anyo.append(year) #Se obtiene el año de la empresa
+                        sector.append(sectores) #Se obtiene el sector de la empresa
                     else:pass
             except:
                     pass
