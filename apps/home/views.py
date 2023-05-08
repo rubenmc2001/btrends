@@ -302,41 +302,41 @@ def prepare_data(data, dimensiones):
     if len(dimensiones) == 2:
         if dimensiones[0] == 'country' and dimensiones[1] == 'size':
             data['country_size'] = data['country'] + '_' + data['size']
-            data_grouped = data.groupby(by=["year","country","sector","country_size"]).size().reset_index(name="counts")
+            data_grouped = data.groupby(by=["anyo","country","sector","country_size"]).size().reset_index(name="counts")
             data_grouped['weight'] = [df_sector.loc[data_grouped.iloc[row, 2], data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','country_size']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','country_size']).sum(numeric_only=True).reset_index()
 
         elif dimensiones[0] == 'country' and dimensiones[1] == 'sector':
             data['country_sector'] = data['country'] + '_' + data['sector']
-            data_grouped = data.groupby(by=["year","country","size","country_sector"]).size().reset_index(name="counts")
+            data_grouped = data.groupby(by=["anyo","country","size","country_sector"]).size().reset_index(name="counts")
             data_grouped['weight'] = [df_size.loc[data_grouped.iloc[row, 2], data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','country_sector']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','country_sector']).sum(numeric_only=True).reset_index()
         
         elif dimensiones[0] == 'sector' and dimensiones[1] == 'size':
             data['size_sector'] = data['size'] + '_' + data['sector']
-            data_grouped = data.groupby(by=["year","country","size","size_sector"]).size().reset_index(name="counts")
+            data_grouped = data.groupby(by=["anyo","country","size","size_sector"]).size().reset_index(name="counts")
             data_grouped['weight'] = [df_country.loc['Weight', data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','size_sector']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','size_sector']).sum(numeric_only=True).reset_index()
 
     elif len(dimensiones) == 1:
         if dimensiones[0] == 'size':
-            data_grouped = data.groupby(by=["year","country","sector","size"]).size().reset_index(name="counts")
+            data_grouped = data.groupby(by=["anyo","country","sector","size"]).size().reset_index(name="counts")
             data_grouped['weight'] = [df_sector.loc[data_grouped.iloc[row, 2], data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','country','size']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','country','size']).sum(numeric_only=True).reset_index()
             data_grouped['weight'] = [df_country.loc['Weight', data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','size']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','size']).sum(numeric_only=True).reset_index()
         elif dimensiones[0] == 'sector':
-            data_grouped = data.groupby(by=["year","country","sector","size"]).size().reset_index(name="counts")
+            data_grouped = data.groupby(by=["anyo","country","sector","size"]).size().reset_index(name="counts")
             data_grouped['weight'] = [df_size.loc[data_grouped.iloc[row, 3], data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','country','sector']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','country','sector']).sum(numeric_only=True).reset_index()
             data_grouped['weight'] = [df_country.loc['Weight', data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','sector']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','sector']).sum(numeric_only=True).reset_index()
         elif dimensiones[0] == 'country':
-            data_grouped = data.groupby(by=["year","country","sector","size"]).size().reset_index(name="counts")
+            data_grouped = data.groupby(by=["anyo","country","sector","size"]).size().reset_index(name="counts")
             data_grouped['weight'] = [df_sector.loc[data_grouped.iloc[row, 2], data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','country','size']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','country','size']).sum(numeric_only=True).reset_index()
             data_grouped['weight'] = [df_size.loc[data_grouped.iloc[row, 2], data_grouped.iloc[row, 1]]*data_grouped.iloc[row, 4] for row in range(data_grouped.shape[0])]
-            data_grouped = data_grouped.groupby(['year','country']).sum(numeric_only=True).reset_index()
+            data_grouped = data_grouped.groupby(['anyo','country']).sum(numeric_only=True).reset_index()
     else: return 'Error of len of dimensions. Accepted dimensions: country, sector, size and 1 >= len <= 2'
 
     return data_grouped
@@ -344,8 +344,8 @@ def prepare_data(data, dimensiones):
 
 def f_lineplot(data):
 
-    data_grouped = data.groupby(by=["year"]).size().reset_index(name="counts")
-    fig = px.line(data_grouped, x = 'year', y = 'counts', title='Número de empresas por año', markers = True, hover_data = {'year': True, 'counts': True}, labels = {'year': 'Año', 'counts': 'Número de empresas'})
+    data_grouped = data.groupby(by=["anyo"]).size().reset_index(name="counts")
+    fig = px.line(data_grouped, x = 'anyo', y = 'counts', title='Número de empresas por año', markers = True, hover_data = {'anyo': True, 'counts': True}, labels = {'anyo': 'Año', 'counts': 'Número de empresas'})
     # fig.update_layout(width=800, height=400)
     fig.update_xaxes(title = "Año", showgrid=False)
     fig.update_yaxes(title = "Número de empresas", showgrid=False)
@@ -360,7 +360,7 @@ def f_lineplot(data):
 def f_multilineplot(data):
     dimensiones = ['country']
     data_grouped = prepare_data(data,dimensiones)
-    fig = px.line(data_grouped, x = 'year', y = 'weight',color = 'country',title='Número de empresas por países', markers = True, hover_data = {'year':False}, labels = {'country':'País','weight': 'Número de empresas'})
+    fig = px.line(data_grouped, x = 'anyo', y = 'weight',color = 'country',title='Número de empresas por países', markers = True, hover_data = {'anyo':False}, labels = {'country':'País','weight': 'Número de empresas'})
     fig.update_xaxes(title = "Año", showgrid=False)
     fig.update_yaxes(title = "Número de empresas", showgrid=False)
     # fig.update_traces(line=dict(color='red'),textposition="bottom right")
