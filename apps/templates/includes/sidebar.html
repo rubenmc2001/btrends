@@ -1,0 +1,66 @@
+<!-- [ navigation menu ] start -->
+<nav class="pcoded-navbar">
+    <div class="navbar-wrapper">
+        <div class="navbar-brand header-logo">
+            <a href="/" class="b-brand">
+                <div class="b-bg">
+                    <i class="feather icon-trending-up"></i>
+                </div>
+                <span class="b-title">BTrends</span>
+            </a>
+            <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+        </div>
+        <div class="navbar-content scroll-div">
+            <ul class="nav pcoded-inner-navbar">
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Visualización</label>
+                </li>
+                <li data-username="Chart" 
+                    class="nav-item {% if 'chart' in segment %} active {% endif %}">
+                    <a href="/" class="nav-link"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                </li>
+            
+
+                {% if user.is_authenticated %}
+                <li data-username="Historial" 
+                    class="nav-item {% if 'historial' in segment %} active {% endif %}">
+                    <a href="/historial.html" class="nav-link"><span
+                        class="pcoded-micon"><i class="feather icon-clock"></i></span><span class="pcoded-mtext">Historial</span></a>
+                </li>
+
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Perfil</label>
+                </li>
+
+                <li data-username="Profile Page" 
+                    class="nav-item {% if 'profile' in segment %} active {% endif %}">
+                    <a href="/profile.html" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                            <span class="pcoded-mtext">Perfil</span></a>
+                </li>     
+
+                <li data-username="Disabled Menu" class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Cerrar sesión</span>
+                    </a>
+                </li> 
+                {% endif %}           
+                
+                
+                {% if not user.is_authenticated %}
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Perfil</label>
+                </li>
+                <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe">
+                    <a href="/login.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span
+                            class="pcoded-mtext">Iniciar sesión</span>
+                            <span
+                                class="pcoded-badge label label-danger">+ FUNCIONES</span></a>
+                </li>
+
+                {% endif %}    
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- [ navigation menu ] end -->

@@ -1,0 +1,125 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Profile {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Editar información</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <div class="row">
+
+                                                <div class="col-sm-6 mb-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Usuario</label>
+                                                        <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" 
+                                                               readonly value="{{ request.user.username }}">
+                                                        
+                                                    </div>
+                                                </div>                                                
+                                                <div class="col-sm-6 mb-4">
+                                                    <div class="form-group">
+                                                        <label {% if not request.user.email %} class="text-danger" {% endif %} 
+                                                               for="exampleInputEmail1">Correo electrónico</label>
+                                                        <input type="email"
+                                                               {% if request.user.email %} readonly value="{{ request.user.email }}" {% endif %}  
+                                                               class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduzca el correo electrónico">
+                                                        {% if not request.user.email %}       
+                                                            <small id="emailHelp" class="form-text text-danger">
+                                                                No tienes un correo electrónico asociado con este usuario.
+                                                            </small>
+                                                        {% endif %}    
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 mb-4">
+                                                    <div class="form-group">
+                                                        <label for="fn">Nombre</label>
+                                                        <input type="email" class="form-control" id="fn" aria-describedby="emailHelp" placeholder="Tu nombre">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 mb-4">
+                                                    <div class="form-group">
+                                                        <label for="ln">Apellidos</label>
+                                                        <input type="email" class="form-control" id="ln" aria-describedby="emailHelp" placeholder="Tus apellidos">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-12 mb-2">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                                    </div>
+                                                </div>   
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <div class="d-flex align-items-center justify-content-center flex-column">
+                                                <div class="w-50 p-3">
+                                                    <img src="{{ ASSETS_ROOT }}/images/user/hombre.png" alt="profile image"
+                                                        class="img-fluid rounded-circle">
+                                                        
+                                                </div>
+                                                <div class="text-center">
+                                                    <h4 class="font-weight-bold h6">
+                                                        {{ request.user.username }}
+                                                    </h4>
+                                                    <p class="font-italic text-muted">
+                                                        {% if request.user.email %} {{ request.user.email }} {% endif %}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="small font-weight-light mt-4 text-center text-muted">
+                                                <p>
+                                                    Esta página es tu espacio privado.
+                                                    <br />
+                                                </p>
+                                            </div>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <a href="#" class="h6 text-muted d-block m-1"><i
+                                                        class="icon feather icon-facebook"></i></a>
+                                                <a href="#" class="h6 text-muted d-block m-1"><i
+                                                        class="icon feather icon-twitter"></i></a>
+                                                <a href="#" class="h6 text-muted d-block m-1"><i
+                                                        class="icon feather icon-instagram"></i></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

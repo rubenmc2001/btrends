@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %} 
+
+{% block content %}
+
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <div class="input-group mb-5">
+                                <div class="col-md-12">
+                                    <form class="d-flex">
+                                        <input class="form-control"
+                                        type="search" placeholder="Escribe una palabra o conjunto de palabras..." aria-label="Search" name="searched">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                            
+                            <!-- [ Morris Chart ] start -->
+                            <div class="col-sm-12">
+                                
+                                <div class="card" style="text-align:center;">
+                                    <div class="text-muted text-center" style="margin-top:30px;">
+                                        {% if user.is_authenticated %}
+                                            <p style="font-weight: bold; width: 100%; text-align: center;">
+                                                Para comenzar con la búsqueda, escriba en la barra superior una palabra o conjunto de palabras. Si lo desea, puede acceder a su <a href="historial.html" style="color: #04a9f5; text-decoration: underline;">historial</a>
+                                            </p>
+                                        {% else %}
+                                            <p style="font-weight: bold; width: 100%; text-align: center;">
+                                                Para comenzar con la búsqueda, escriba en la barra superior una palabra o conjunto de palabras. Si desea que se guarde su búsqueda, <a href="login.html" style="color: #04a9f5; text-decoration: underline;">inicie sesión</a> o <a href="register.html" style="color: #04a9f5; text-decoration: underline;">regístrese</a>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <a class = "icon" style="font-size:250px; color: #8080803d;">
+                                        <i class="icon feather icon-bar-chart-2"></i>
+                                    </a>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
